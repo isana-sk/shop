@@ -1,0 +1,22 @@
+es:
+  nav:
+    menu:
+      hello: "Hola Mundo"
+      home: "Casa"
+      avail: "Disponibilidad Bal"
+      orders: "Pedidos"
+      category: "Categoría"
+      logout: "Cerrar sesión"
+      addcat: "añadir categoría"
+  
+  subcat:
+    Car: "Coche"
+    Bike: "Bicicleta"
+  
+  order:
+    custname: "Nombre del cliente"
+    proname: "nombre del producto"
+    price: "Precio"
+    seller: "Vendedor"
+    date: "Fecha"
+    time: "Tiempo"

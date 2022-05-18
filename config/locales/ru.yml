@@ -1,0 +1,22 @@
+ru:
+  nav:
+    menu:
+      hello: "Привет, мир"
+      home: "Дом"
+      avail: "Свободный Бал"
+      orders: "Заказы"
+      category: "Категория"
+      addcat: "Добавить категорию"
+      logout: "Выйти"
+  
+  subcat:
+    Car: "Автомобиль"
+    Bike: "Велосипед"
+
+  order:
+    custname: "Имя Клиента"
+    proname: "наименование товара"
+    price: "Цена"
+    seller: "Продавец"
+    date: "Дата"
+    time: "Время"

@@ -1,0 +1,9 @@
+<%= javascript_include_tag "admin", "data-turbolinks-track": 'reload' %>
+
+<% if current_user.role == "Admin" %>
+   <%= render '/home/admin' %>
+<% elsif current_user.role == "Seller" %>
+   <%= render '/home/seller'%>
+<% else %>
+   <%= render '/home/customer'%>
+<% end %>

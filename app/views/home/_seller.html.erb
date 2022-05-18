@@ -1,0 +1,55 @@
+<!------------------------------------------For Seller Role------------------------------------------------------------>
+<div id="sell">
+  <ul class = "sidenav bg-dark text-light m-0">
+    <li class="p-2 mt-3 active"><h2><%=current_user.role%></h2><h4><%=current_user.name%></h4></li>
+    <li class="nav-item mt-3"><a class="nav-link text-light p-2"><%=t('nav.menu.avail')%> : <strong>₹<%=current_user.balance%></strong></a></li>
+    <li class="nav-item"><a class="nav-link active text-light p-2"><%=t('nav.menu.home')%></a></li>
+    <li class="nav-item"><a class="nav-link text-light p-2" href="/orders"><%=t('nav.menu.orders')%></a></li>
+    <li class="nav-item dropdown">
+        <a class="nav-link text-light dropdown-toggle p-2" id="cateDropdown" role="button" data-bs-toggle="dropdown">
+          <%=t('nav.menu.category')%>
+        </a>
+        <ul class="dropdown-menu">
+          <% @category.where(category_id:nil).each do |c|%>
+            <li class="dropdown-item ps-2"><a class="nav-link text-dark p-2" href="/product_categories/<%=c.id%>"><%=t("subcat.#{c.name}")%> &raquo;</a></li>
+          <% end %>
+        </ul>
+    </li>
+    <li>
+      <a class="nav-link text-light dropdown-toggle p-2" id="lanDropdown" role="button" data-bs-toggle="dropdown">
+        Language
+      </a>
+      <ul class="dropdown-menu">
+        <li class="dropdown-item ps-2"><%= link_to 'English', root_path(locale: :en), class:"nav-link text-dark p-2" %></li>
+        <li class="dropdown-item ps-2"><%= link_to 'Русский', root_path(locale: :ru), class:"nav-link text-dark p-2" %></li>
+        <li class="dropdown-item ps-2"><%= link_to 'Spanish', root_path(locale: :es), class:"nav-link text-dark p-2" %></li>
+      </ul>
+    </li>
+    <li class="p-2 mt-5"><%= link_to t('nav.menu.logout'), destroy_user_session_path, :method => :delete, class: 'btn btn-outline-success' %></li>
+  </ul>
+
+  <!------------------------------Showing Products---------------------------------------------->
+  <div class="container">
+    <h1>All Products of <%=current_user.name%></h1>
+    <div class="row">
+      <%@products.where(user_id:current_user.id).each do |p|%>
+        <div class="card mx-1 my-1" style="width: 20rem;">
+          <% if p.image.attached? %>
+            <img src="<%=url_for(p.image)%>" class="card-img-top rounded mt-2" style="height:200px; width:285px">
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%=p.name%></h5>
+            <p class="card-text"><%=p.description%></p>
+            <p class="card-text"><strong>Price : </strong> ₹<%=p.price%></p>
+            <%= link_to "Remove", product_path(p.id), :method => :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-outline-danger mx-2'%>
+            <%= link_to "Edit", edit_product_path(p.id), :method => :get, class: 'btn btn-outline-info mx-2'%>
+            <%= link_to "View", product_path(p.id), :method => :get, class: 'btn btn-outline-primary mx-2'%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+   

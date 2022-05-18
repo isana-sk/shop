@@ -1,0 +1,68 @@
+<ul class = "sidenav bg-dark text-light m-0">
+  <li class="p-2 mt-3 active"><h2><%=current_user.role%></h2><h4><%=current_user.name%></h4></li>
+  <li class="nav-item mt-3"><a class="nav-link text-light p-2"><%=t('nav.menu.avail')%> : <strong>₹<%=current_user.balance%></strong></a></li>
+  <li class="nav-item"><a class="nav-link text-light p-2" href="/"><%=t('nav.menu.home')%></a></li>
+  <li class="nav-item"><a class="nav-link text-light p-2" href="/orders"><%=t('nav.menu.orders')%></a></li>
+  <li class="nav-item dropdown">
+      <a class="nav-link text-light dropdown-toggle p-2" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+        <%=t('nav.menu.category')%>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <% ProductCategory.all.where(category_id:nil).each do |c|%>
+            <li class="dropdown-item ps-2"><a class="nav-link text-dark p-2" href="/product_categories/<%=c.id%>"><%=t("subcat.#{c.name}")%> &raquo;</a></li>
+        <% end %>
+      </ul>
+  </li>
+  <li>
+    <a class="nav-link text-light dropdown-toggle p-2" id="lanDropdown" role="button" data-bs-toggle="dropdown">
+      Language
+    </a>
+    <ul class="dropdown-menu">
+      <li class="dropdown-item ps-2"><%= link_to 'English', root_path(locale: :en), class:"nav-link text-dark p-2" %></li>
+      <li class="dropdown-item ps-2"><%= link_to 'Русский', root_path(locale: :ru), class:"nav-link text-dark p-2" %></li>
+      <li class="dropdown-item ps-2"><%= link_to 'Spanish', root_path(locale: :es), class:"nav-link text-dark p-2" %></li>
+    </ul>
+  </li>
+  <li class="p-2 mt-5"><%= link_to t('nav.menu.logout'), destroy_user_session_path, :method => :delete, class: 'btn btn-outline-success' %></li>
+</ul>
+
+
+<!--------------------------------------------Edit form---------------------------------------------------->
+
+<div class="container pt-3" id='add'>
+  <div class="p-2 border w-50">
+    <h3>Edit Product Information</h3>
+    <%= form_for @product, :url =>{action:"update", id: @product} do |f| %>
+
+      <%=f.hidden_field :user_id, value:"#{current_user.id}", class:"form-control"%>
+
+      <label for = "category_id" class = "my-2">Category : </label>
+      <%= f.collection_select :product_category_id, @category, :id, :name, {}, {class:"form-control mx-auto"}%>
+      
+
+      <%= f.file_field :image, class:"form-control my-3" %>
+      
+      <div class="form-floating my-3">
+        <%= f.text_field :name, placeholder: "name", class:"form-control" %>
+        <%= f.label :name %>
+      </div>
+
+      <div class="form-floating my-3">
+        <%= f.text_field :price, placeholder: "price", class: "form-control" %>
+        <%= f.label :price %>
+      </div>
+
+      <div class="form-floating my-3">
+        <%= f.text_area :description, placeholder: "description", class: "form-control" %>
+        <%=f.label :description%>
+      </div>
+
+        <%=f.label :quantity%>
+        <%= f.number_field :quantity, in: 1.0..10000.0, placeholder: "Quantity", class: "form-control w-25" %>
+
+      <div class="actions my-3">
+        <%= button_tag "Save Change", type: "submit", class: "btn btn-primary mt-2"%>
+      </div>
+    <% end %>
+  </div>
+</div>

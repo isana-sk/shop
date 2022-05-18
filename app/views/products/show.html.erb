@@ -1,0 +1,48 @@
+<ul class = "sidenav bg-dark text-light m-0">
+  <li class="p-2 mt-3"><h2><%=current_user.role%></h2><h4><%=current_user.name%></h4></li>
+  <% if current_user.role != "Admin" %>
+    <li class="p-2 mt-3" ><%=t('nav.menu.avail')%> : <strong>₹<%=current_user.balance%></strong></li>
+  <% end %>
+  <li class="nav-item"><a class="nav-link text-light p-2" href="/"><%=t('nav.menu.home')%></a></li>
+  <li class="nav-item"><a class="nav-link text-light p-2" href="/orders"><%=t('nav.menu.orders')%></a></li>
+  <li class="nav-item dropdown">
+    <a class="nav-link text-light dropdown-toggle p-2" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+      <%=t('nav.menu.category')%>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <% @category.where(category_id:nil).each do |c|%>
+        <li class="dropdown-item ps-2"><a class="nav-link text-dark p-2" href="/product_categories/<%=c.id%>"><%=t("subcat.#{c.name}")%> &raquo;</a></li>
+      <% end %>
+    </ul>
+  </li>
+  <li>
+    <a class="nav-link text-light dropdown-toggle p-2" id="lanDropdown" role="button" data-bs-toggle="dropdown">
+      Language
+    </a>
+    <ul class="dropdown-menu">
+      <li class="dropdown-item ps-2"><%= link_to 'English', root_path(locale: :en), class:"nav-link text-dark p-2" %></li>
+      <li class="dropdown-item ps-2"><%= link_to 'Русский', root_path(locale: :ru), class:"nav-link text-dark p-2" %></li>
+      <li class="dropdown-item ps-2"><%= link_to 'Spanish', root_path(locale: :es), class:"nav-link text-dark p-2" %></li>
+    </ul>
+  </li>
+  <li class="p-2 mt-5"><%= link_to t('nav.menu.logout'), destroy_user_session_path, :method => :delete, class: 'btn btn-outline-success' %></li>
+</ul>
+
+<div class="container pt-3">
+  <div class="card p-3 w-50">
+    <% if @product.image.attached? %>
+      <img src="<%=url_for(@product.image)%>" class="card-img-top rounded mt-2" style="height:200px; width:285px">
+    <% end %>
+    <h1 class= "card-text"><%=@product.name%></h1>
+    <h5 class="card-title"><%=@product.name%></h5>
+    <p class="card-text"><%=@product.description%></p>
+    <p class="card-text"><strong>Price : </strong> ₹<%=@product.price%></p>
+    <p class="card-text"><strong>Quantity: </strong><%=@product.quantity%></p>
+    <%if current_user.role == 'Customer'%>
+      <%= link_to "Buy", "/orders/#{@product.id}", :method => :get, class: 'btn btn-success mx-auto w-50'%>
+    <% elsif current_user.role == 'Seller' %>
+      <%= link_to "Edit", edit_product_path(@product.id), :method => :get, class: 'btn btn-outline-info mx-2'%>
+    <%end%>
+    <%= link_to "Back", "/", method: :get, class: "btn btn-dark mt-2"%>
+  </div>
+</div>

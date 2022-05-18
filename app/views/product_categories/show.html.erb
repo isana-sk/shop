@@ -1,0 +1,9 @@
+<!------------------------------------For Showing Product------------------------------------------------>
+<% if current_user.role == "Seller" %>
+  <%= javascript_include_tag "seller", "data-turbolinks-track": 'reload' %>
+  <%= render '/product_categories/showseller'%>
+<% elsif current_user.role == "Admin" %>
+  <%= render '/product_categories/showadmin'%>
+<% else %>
+  <%= render '/product_categories/showcustomer'%>
+<% end %>

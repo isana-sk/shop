@@ -1,0 +1,7 @@
+<% if current_user.role == "Admin" %>
+  <%= render '/orders/adminorder' %>
+<% elsif current_user.role == "Seller" %>
+  <%= render '/orders/sellerorder'%>
+<% else %>
+  <%= render '/orders/customerorder'%>
+<% end %>

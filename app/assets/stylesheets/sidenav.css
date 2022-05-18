@@ -1,0 +1,12 @@
+.sidenav{
+  list-style-type: none;
+  width: 15%;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+li:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
