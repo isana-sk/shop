@@ -21,5 +21,7 @@ module Shop
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.available_locales = [:en, :es, :ru]
     config.i18n.default_locale = :en
+    config.action_mailer.default_url_options = { host: "example.com" }
+
   end
 end

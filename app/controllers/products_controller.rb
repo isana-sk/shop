@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    UserMailer.notification.deliver_later
     if @product.save
       redirect_to root_url
     end
@@ -28,7 +29,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    Product.find(params[:id]).delete
+    Product.find(params[:id]).destroy
     redirect_to root_url
   end
 

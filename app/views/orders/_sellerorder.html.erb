@@ -23,7 +23,7 @@
       <li class="dropdown-item ps-2"><%= link_to 'Spanish', orders_path(locale: :es), class:"nav-link text-dark p-2" %></li>
     </ul>
   </li>
-  <li class="p-2 mt-5"><%= link_to t('nav.menu.logout'), destroy_user_session_path, :method => :delete, class: 'btn btn-outline-success' %></li>
+  <%= link_to t('nav.menu.logout'), destroy_user_session_path, :method => :delete, class: 'btn btn-outline-success mt-5 ms-2' %>
 </ul>
 
 <div class= "container pt-5">
@@ -41,12 +41,14 @@
     </thead>
     <% @order.each do |o|%>
     <tr>
-      <td><%=o.user.name%></td>
-      <td><%=o.product.name%></td>
-      <td><%=o.product.price%></td>
-      <td><%=o.product.user.name%></td>
-      <td><%=o.created_at.strftime('%Y-%m-%d')%></td>
-      <td><%=o.created_at.strftime("%I:%M %p")%></td>
+      <% if o.product.user.name == current_user.name%>
+        <td><%=o.user.name%></td>
+        <td><%=o.product.name%></td>
+        <td><%=o.product.price%></td>
+        <td><%=o.product.user.name%></td>
+        <td><%=o.created_at.strftime('%Y-%m-%d')%></td>
+        <td><%=o.created_at.strftime("%I:%M %p")%></td>
+      <%end%>
     </tr>
     <% end %>
   </table>

@@ -23,7 +23,7 @@
       <li class="dropdown-item ps-2"><%= link_to 'Spanish', root_path(locale: :es), class:"nav-link text-dark p-2" %></li>
     </ul>
   </li>
-  <li class="p-2 mt-5"><%= link_to t('nav.menu.logout'), destroy_user_session_path, :method => :delete, class: 'btn btn-outline-success' %></li>
+  <%= link_to t('nav.menu.logout'), destroy_user_session_path, :method => :delete, class: 'btn btn-outline-success mt-5 ms-2' %>
 </ul>
 
 
